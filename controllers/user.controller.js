@@ -27,29 +27,6 @@ return res.status(404).send({message: 'Not found'})
     })
    
 }
-// exports.updateBio=async (req,res)=>{
-//     if (!ObjectId.isValid(req.params.id))
-//     return res.status(400).send(`Id unknown : ${req.params.id}`)
-//     // const user=req.body
-// try {
-//     await UserModel.findOneAndUpdate({_id:req.params.id},{
-//         $set:{
-//             bio:req.body.bio
-//         },
-       
-//     } ,{new:true,upsert:true,setDefaultsOnInsert:true},(err,doc)=>{
-//         console.log("heeeeeeeeeeeeeeeeeeere");
-//         if(!err)  res.status(200).json(doc)
-//         if(err)  res.status(500).json(err)
-
-//     })
-// } catch (error) {
-//     console.log("ERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR"+error);
-//      res.status(400).json(`ERR ${error}`)
-    
-// }    
-// }
-
 exports.updateBio = async (req, res) => {
   if (!ObjectId.isValid(req.params.id))
     return res.status(400).send("ID unknown : " + req.params.id);
