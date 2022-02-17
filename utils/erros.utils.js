@@ -14,6 +14,17 @@ exports.signUpErrors = (err) => {
     // if (err.code==)
     return errors
 }
-exports.signInErrors=(err)=>{
-    
+exports.signInErrors = (err) => {
+    let errors = {
+        username: false, email: false, password: false
+    }
+    if (err.message.includes('username'))
+        errors.username = true
+
+    if (err.message.includes('email'))
+        errors.email = true
+
+    if (err.message.includes('password'))
+        errors.password = true
+    return errors
 }

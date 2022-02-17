@@ -5,12 +5,12 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser')
-
+var postRouter=require('./routes/post.route')
 var indexRouter = require('./routes/index');
 var userRouter = require('./routes/user.route');
 var authRouter = require('./routes/auth.route');
-const {checkUser,requireAuth}  =require("./middleware/auth.middleware")
-  require("./config/db")
+const { checkUser, requireAuth } = require("./middleware/auth.middleware")
+require("./config/db")
 var app = express();
 
 // view engine setup
@@ -25,20 +25,21 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // JWT
 
-app.get("*",checkUser) 
-app.get("/jwtid",requireAuth ,(req,res)=>{
+// app.all("/api/v1/user/*", checkUser)
+app.get("/jwtid", requireAuth, (req, res) => {
   res.status(200).send(res.locals.user._id)
 })
 
 
 // ROUTES
 app.use('/', indexRouter);
-app.use('/api/v1/user', userRouter);
+app.use('/api/v1/user',checkUser, userRouter);
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/post',checkUser, postRouter);
 
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use(function (req, res, next) { 
   next(createError(404));
 });
 app.use(bodyParser.json())
